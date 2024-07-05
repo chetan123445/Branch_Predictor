@@ -1,16 +1,4 @@
-// #include <bits/stdc++.h>
-#include <map>
-#include <algorithm>
-#include <iostream>
-#include <set>
-#include <bitset>
-#include <string>
-#include <sstream>
-#include <iomanip>
-#include <fstream>
-#include <climits>
-#include <cmath>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 double hit1 = 0;
@@ -40,9 +28,10 @@ string hexStringToBinary(const string &hexString)
     ss >> intValue;
 
     // Convert integer to binary string
-    std::bitset<32> bits(intValue);
+    bitset<32> bits(intValue);
     return bits.to_string();
 }
+
 // Function to convert a binary string to its hexadecimal equivalent
 string binaryToHexadecimal(const string &binaryString)
 {
@@ -66,12 +55,14 @@ ll hexToDecimal(const string &hexString)
 
     return result;
 }
+
 string inttohex(ll value)
 {
     stringstream ss;
-    ss << "0x" << std::setfill('0') << std::setw(8) << std::hex << value; // cout<<ss.str()<<" ";
+    ss << "0x" << std::setfill('0') << std::setw(8) << std::hex << value;
     return ss.str();                                                      // Return the string representation
 }
+
 // to get the instruction whether it is branch or jal jalr or other instruction
 string decode(string bin)
 {
@@ -231,6 +222,7 @@ void one_bit_dynamic(string ss)
         }
     }
 }
+
 void two_bit_dynamic(string ss)
 {
     vector<char> branch_prediction;
@@ -274,9 +266,10 @@ void two_bit_dynamic(string ss)
         }
     }
 }
+
 int main()
 {
-    ifstream in("input.txt"); // READING INPUT FILE
+    ifstream in("qs.txt"); // READING INPUT FILE
     while (!in.eof())         // PARSING FILE
     {
         string text;
@@ -339,6 +332,7 @@ int main()
             }
         }
     }
+    
     // STORING DECIMAL FORMAT OF ALL PC VALUES TO GET DIFFERENCE EASILY FURTHER
     for (int i = 0; i < hexa_pc_vect.size(); i++)
     {
@@ -374,11 +368,12 @@ int main()
                 mp[buffer] += " T";
             }
             // cout<< "0x"+ hexa_pc_vect[j + 1]<<" "<<buff2<<endl;
-            else if ((("0x" + hexa_pc_vect[j]).compare(buff2)) == 0)
+            else if ((("0x" + hexa_pc_vect[j+1]).compare(buff2)) == 0)
             {                                           // cout<<buff2<<endl;                                         // IF NEXT PC ADDRESS AND IMMEDIATE FIELD ARE EQUAL THEN IT MEANS LABEL WAS AT NEXT LINE AND BRANCH IS TAKEN
                 branch_outcome.push_back("T");          // OUTCOME IS THAT BRANCH HAS BEEN TAKEN
                 string buffer = "0x" + hexa_pc_vect[j]; // CURRENT BRANCH ADDRESS AND ALSO TARGET ADRESS
-                BTB.push_back({buffer, buffer});
+                string buffer2 = "0x" + hexa_pc_vect[j+1];
+                BTB.push_back({buffer, buffer2});
                 mp[buffer] += " T";
             }
             else
